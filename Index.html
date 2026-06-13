@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Coffeeshop Gunung Wayang</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- DataTables CSS & Buttons CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="loginScreen" class="login-screen">
+    <div class="login-card">
+        <h2 class="text-center">Login Coffeeshop</h2>
+        <form id="loginForm">
+            <div class="mb-3">
+                <label for="loginUsername" class="form-label">Username</label>
+                <input type="text" id="loginUsername" class="form-control" placeholder="Masukkan username" required>
+            </div>
+            <div class="mb-3">
+                <label for="loginPassword" class="form-label">Password</label>
+                <input type="password" id="loginPassword" class="form-control" placeholder="Masukkan password" required>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Masuk</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="appContent" class="container-fluid d-none">
+    <div class="row">
+        <!-- SIDEBAR -->
+        <nav class="col-md-2 d-none d-md-block sidebar p-3">
+            <h4 class="text-center mb-4"><i class="fa-solid fa-mug-saucer me-2"></i>Coffeshop Gunung Wayang</h4>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2">
+                    <a class="nav-link text-white active" href="#"><i class="fa-solid fa-gauge me-2"></i> Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a id="logoutLink" class="nav-link text-danger" href="#" data-bs-toggle="tooltip" title="Keluar dari aplikasi"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- MAIN CONTENT -->
+        <main class="col-md-10 ms-sm-auto px-md-4 py-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <div>
+                    <h1 class="h2 mb-1">Manajemen Data Coffeeshop</h1>
+                    <p class="text-muted mb-0">Kelola pesanan, pelanggan, dan dokumen digital Coffeeshop Gunung Wayang dengan gaya hangat dan interaktif.</p>
+                </div>
+                <!-- Button Trigger Modal -->
+                <button type="button" class="btn btn-primary button-float" data-bs-toggle="modal" data-bs-target="#formModal" title="Buat transaksi baru">
+                    <i class="fa-solid fa-plus me-2"></i> Tambah Data Baru
+                </button>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-lg-8 mb-3">
+                    <div class="header-card">
+                        <div class="d-flex flex-column flex-md-row align-items-start justify-content-between gap-3">
+                            <div>
+                                <span class="badge badge-soft mb-3">Dashboard Coffeeshop</span>
+                                <h2 class="h4 mb-2">Selamat datang di Coffeeshop Gunung Wayang</h2>
+                                <p class="mb-3 text-white-75">Pantau pesanan, pelanggan, dan tanda tangan digital dengan nuansa kopi yang hangat dan ramah.</p>
+                                <a href="#mainTable" class="btn btn-light btn-sm button-float text-primary">Lihat Transaksi <i class="fa-solid fa-arrow-down ms-2"></i></a>
+                            </div>
+                            <div class="text-end">
+                                <div class="h1 mb-1">✨</div>
+                                <p class="mb-0 text-white-75">Semua fitur penting hanya dengan satu klik.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <div class="card border-0 shadow-sm coffee-showcase p-4 text-center">
+                        <div class="mb-3 text-primary fs-1"><i class="fa-solid fa-lightbulb"></i></div>
+                        <h5 class="mb-2">Quick Tip</h5>
+                        <p class="text-muted mb-3">Klik ikon <span class="badge bg-info text-white">View</span> di tabel untuk membuka detail lengkap transaksi dan tanda tangan.</p>
+                        <div class="coffee-scene text-start">
+                            <div class="coffee-cup" aria-label="Animated coffee cup">
+                                <span class="steam"></span>
+                                <span class="steam steam-two"></span>
+                                <span class="steam steam-three"></span>
+                            </div>
+                            <div class="coffee-badges">
+                                <span><i class="fa-solid fa-mug-hot"></i> Latte</span>
+                                <span><i class="fa-solid fa-cookie-bite"></i> Warm</span>
+                                <span><i class="fa-solid fa-wand-magic-sparkles"></i> Cozy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-lg-7 mb-3">
+                    <div class="card border-0 shadow-sm soft-panel p-4">
+                        <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+                            <div>
+                                <p class="text-uppercase small mb-2 text-muted">Pencarian & Interaksi</p>
+                                <h5 class="mb-1">Cari data secara real-time</h5>
+                                <p class="text-muted mb-0">Fitur pencarian DataTables sudah aktif, lengkap dengan tombol ekspor ke Excel, PDF, dan CSV.</p>
+                            </div>
+                            <span class="badge bg-success-subtle text-success">Realtime</span>
+                        </div>
+                        <div class="input-group mt-3">
+                            <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+                            <input id="liveSearch" type="search" class="form-control" placeholder="Cari nama pelanggan, file, atau status tanda tangan...">
+                        </div>
+                        <div class="d-flex flex-wrap gap-2 mt-3">
+                            <span class="badge-chip"><i class="fa-solid fa-plus"></i> CRUD</span>
+                            <span class="badge-chip"><i class="fa-solid fa-file-arrow-up"></i> Upload Multiple</span>
+                            <span class="badge-chip"><i class="fa-solid fa-pen-nib"></i> TTD Digital</span>
+                            <span class="badge-chip"><i class="fa-solid fa-table"></i> DataTables</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 mb-3">
+                    <div class="card border-0 shadow-sm hero-glow p-4">
+                        <p class="small text-uppercase mb-2" style="letter-spacing:0.2em; opacity:0.85;">Tema interaktif</p>
+                        <h5 class="mb-2">Aplikasi terasa lebih hidup dan menarik</h5>
+                        <p class="mb-3" style="color: rgba(255,250,245,0.88);">Tema warna kopi, animasi halus, dan kartu multimedia membuat dashboard lebih nyaman untuk dipakai saat presentasi maupun demo.</p>
+                        <div class="d-flex align-items-center gap-2 text-white-50 small mb-2"><span class="glow-ring"></span> Sistem siap digunakan</div>
+                        <div class="d-flex align-items-center gap-2 text-white-50 small"><span class="floating-dot"></span> Login, modal, dan ekspor data sudah terhubung</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DASHBOARD METRICS -->
+            <div class="row mb-4">
+                <div class="col-md-3 mb-3">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="me-3 text-primary fs-1"><i class="fa-solid fa-file-lines"></i></div>
+                                <div>
+                                    <small class="text-muted">Total Dokumen</small>
+                                    <h4 id="totalDocs" class="mb-0">0</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="me-3 text-success fs-1"><i class="fa-solid fa-users"></i></div>
+                                <div>
+                                    <small class="text-muted">Pelanggan</small>
+                                    <h4 id="totalCustomers" class="mb-0">0</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="me-3 text-warning fs-1"><i class="fa-solid fa-pen-fancy"></i></div>
+                                <div>
+                                    <small class="text-muted">Tanda Tangan</small>
+                                    <h4 id="signedCount" class="mb-0">0</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="me-3 text-info fs-1"><i class="fa-solid fa-paperclip"></i></div>
+                                <div>
+                                    <small class="text-muted">Lampiran</small>
+                                    <h4 id="fileCount" class="mb-0">0</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-lg-7 mb-3">
+                    <div class="card border-0 shadow-sm multimedia-card p-3 coffee-visual-panel">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div>
+                                <h5 class="mb-1">Animasi CoffeeShop</h5>
+                                <p class="text-muted small mb-0">Visual hangat dengan uap kopi, cangkir, dan efek cahaya supaya suasana presentasi lebih hidup.</p>
+                            </div>
+                            <span class="badge bg-primary-subtle text-primary">Animasi</span>
+                        </div>
+                        <div class="coffee-animation-stage" aria-label="Animasi tema coffeshop">
+                            <div class="coffee-glow"></div>
+                            <div class="espresso-machine">
+                                <span class="steam-cloud steam-one"></span>
+                                <span class="steam-cloud steam-two"></span>
+                                <span class="steam-cloud steam-three"></span>
+                            </div>
+                            <div class="latte-art"></div>
+                            <div class="bean bean-one">☕</div>
+                            <div class="bean bean-two">☕</div>
+                            <div class="bean bean-three">☕</div>
+                            <div class="spark spark-one"></div>
+                            <div class="spark spark-two"></div>
+                        </div>
+                        <small class="text-muted d-block mt-2">Tema warna kopi, uap, dan lampu hangat dibuat agar tetap konsisten dengan project CoffeeShop Anda.</small>
+                    </div>
+                </div>
+                <div class="col-lg-5 mb-3">
+                    <div class="card border-0 shadow-sm multimedia-card p-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div>
+                                <h5 class="mb-1">Audio Ambient CoffeeShop</h5>
+                                <p class="text-muted small mb-0">Putar suasana hangat dari audio buatan browser agar demo terasa lebih hidup.</p>
+                            </div>
+                            <span class="badge bg-warning-subtle text-warning">Audio</span>
+                        </div>
+                        <div class="audio-shell">
+                            <audio id="ambientAudio" preload="auto" loop class="w-100"></audio>
+                            <div class="audio-wave" aria-hidden="true">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                            <div class="audio-chip">Warm • Cozy • Latte</div>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2 mt-3">
+                            <button id="playToneBtn" type="button" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-music me-2"></i>Putar Ambience</button>
+                            <button id="stopToneBtn" type="button" class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-stop me-2"></i>Berhenti</button>
+                        </div>
+                        <small id="audioStatus" class="text-muted d-block mt-2">Status: siap diputar</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DATATABLE CARD -->
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <table id="mainTable" class="table table-striped table-hover" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Pelanggan</th>
+                                <th>File Uploaded</th>
+                                <th>Tanda Tangan</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- MODAL FORM (CRUD + MULTIPLE FILE + SIGNATURE) -->
+<div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="formModalLabel">Form Transaksi Baru</h5>
+                <button type="button" class="btn-close" data-bs-shadow="none" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="mainForm" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row">
+                        <!-- Left Side Form -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Nama Pelanggan</label>
+                            <input type="text" class="form-control" name="customerName" placeholder="Masukkan nama pelanggan" required>
+                            
+                            <div class="mt-3">
+                                <label class="form-label fw-bold">Upload Lampiran (Multiple)</label>
+                                <input type="file" class="form-control" name="files[]" multiple required>
+                                <small class="text-muted">Bisa pilih lebih dari 1 file sekaligus.</small>
+                            </div>
+                        </div>
+                        
+                        <!-- Right Side Form (Signature Pad) -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Tanda Tangan Digital</label>
+                            <canvas id="signaturePad" class="signature-pad"></canvas>
+                            <div class="mt-2 text-end">
+                                <button type="button" id="clearSignature" class="btn btn-sm btn-outline-danger">Hapus Tanda Tangan</button>
+                            </div>
+                            <!-- Hidden input untuk menyimpan data base64 gambar tanda tangan -->
+                            <input type="hidden" id="signatureData" name="signature">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Data</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- VIEW DETAILS MODAL -->
+<div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewModalLabel">Detail Transaksi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Nama Pelanggan:</strong> <span id="viewCustomerName"></span></p>
+                <p><strong>File Uploaded:</strong></p>
+                <div id="viewAttachments"></div>
+                <p><strong>Status Tanda Tangan:</strong> <span id="viewSignatureStatus"></span></p>                <div class="mt-3">
+                    <strong>Preview Tanda Tangan:</strong>
+                    <div id="viewSignatureImage" class="border rounded bg-light p-2 mt-2 text-center" style="min-height: 220px;">
+                        <img id="signaturePreview" src="" alt="Signature Preview" class="img-fluid" style="max-height: 200px; display:none;" />
+                        <div id="signaturePlaceholder" class="text-muted small">Tidak ada tanda tangan yang tersedia.</div>
+                    </div>
+                </div>            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1080;">
+    <div id="liveToast" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body" id="toastMessage">Pesan status aplikasi.</div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+<!-- SCRIPTS (jQuery, Bootstrap, DataTables, SignaturePad) -->
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- DataTables core & Buttons plugin -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+
+<!-- Signature Pad Library -->
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+
+<!-- Feature-based JavaScript -->
+<script src="dataTableFeature.js"></script>
+<script src="signatureFeature.js"></script>
+<script src="crudFeature.js"></script>
+<script src="loginFeature.js"></script>
+<script src="multimediaFeature.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
