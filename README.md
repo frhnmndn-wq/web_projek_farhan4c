@@ -1,0 +1,1 @@
+Aplikasi berbasis web ini saya buat untuk mempermudah Kasir di satu tempat Coffee Shop agar tidak bingung lagi untuk melihat data pembeli sekaligus untuk membuat catatan yang lebih akurat, jelas dan mudah di akses.
